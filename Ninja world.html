@@ -11,7 +11,7 @@
 	<div id="ninjaman"></div>	
 </body>
 <script type="text/javascript">
-	var world = [
+	var world = [//phsical world For Ninja Man Game
         [1,1,1,1,1],
         [1,0,2,2,1],
         [1,2,1,2,1],
@@ -23,13 +23,13 @@
         [1,1,1,1,1],
 
 	];
-	var worldDict = {
+	var worldDict = {//Sets Images to Numbers(connected to Style.Css)
 		0: "blank",
 		1: "wall",
 		2: "sushi"
 	}
 
-	function drawWorld(){
+	function drawWorld(){//Creates Rows For Ninja Man Game
 		output = "";
 
 		for(var row = 0; row < world.length; row++){
@@ -44,6 +44,44 @@
 		   output;
 	}
 	drawWorld()
+
+	var ninjaman = {//Helps set Ninja Man in default position & Move 
+		x: 1,
+		y: 1
+	}
+
+	function drawNinjaman(){//Sets Ninja Man in Default Position
+		document.getElementById('ninjaman').style.top = ninjaman.y * 40 + 'px'
+		document.getElementById('ninjaman').style.left = ninjaman.x * 40 + 'px'
+	}
+	  drawNinjaman()
+
+	  document.onkeydown = function(e){
+
+	      if(e.keyCode == 37){//Left Key
+	      	if(world[ninjaman.y][ninjaman.x-1]!=1){//keeps NinjaMan within Boundaries 
+			  ninjaman.x--;
+	      	}
+		  }
+		  if(e.keyCode == 39){//Right Key
+		  	if(world[ninjaman.y][ninjaman.x+1]!=1){//keeps NinjaMan within Boundaries
+			  ninjaman.x++;
+			}
+		  }
+		  if(e.keyCode == 40){//Down Key
+		  	if(world[ninjaman.y+1][ninjaman.x]!=1){//keeps NinjaMan within Boundaries
+			  ninjaman.y++;
+			}
+		  }
+		  if(e.keyCode == 38){//Up Key
+		  	if(world[ninjaman.y-1][ninjaman.x]!=1){//keeps NinjaMan within Boundaries
+		 	  ninjaman.y--;
+		 	}
+		  }
+		  world[ninjaman.y][ninjaman.x] = 0;//This causes everywhere ninjaman to go to go blank (0)
+		  drawWorld()//Resets world as Ninja Man moves
+          drawNinjaman();//Resets Ninja Man position
+	}
 
 </script>
 </html>
